@@ -76,7 +76,7 @@ def demo(opt):
         continue
       
       cv2.imshow('input', img)
-
+      
       # track or detect the image.
       ret = detector.run(img)
 

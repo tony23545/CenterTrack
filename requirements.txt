@@ -1,4 +1,4 @@
-opencv-python
+opencv-python==4.2.0.32
 Cython
 numba
 progress
@@ -9,3 +9,4 @@ pyquaternion
 nuscenes-devkit
 pyyaml
 motmetrics
+scikit-learn==0.22.2
