@@ -14,6 +14,7 @@ import numpy as np
 MODEL_PATH = "../models/coco_pose.pth"
 TASK = 'tracking' # or 'tracking,multi_pose' for pose tracking and 'tracking,ddd' for monocular 3d tracking
 opt = opts().init('{} --load_model {}'.format(TASK, MODEL_PATH).split(' '))
+opt.debug = max(opt.debug, 1)
 detector = Detector(opt)
 
 class MinimalSubscriber(Node):
@@ -29,11 +30,12 @@ class MinimalSubscriber(Node):
 		img = np.array(msg.data)
 		img = img.reshape((480, 640, 3))
 		img = np.flip(img, 2)
-		ret = detector.run(img)
+		
 		#print(ret)
-		cv2.imshow("img", ret['generic'])
-		cv2.waitKey(1)
-
+		cv2.imshow("img", img)
+		ret = detector.run(img)
+		if cv2.waitKey(1) == 27:
+			return
 
 rclpy.init(args = None)
 subs = MinimalSubscriber()
